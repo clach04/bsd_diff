@@ -9,6 +9,8 @@ I've a vague recollection building under Mac OSX required NOT building with strl
 
 ## diff resources
 
-  * https://cgit.freebsd.org/src/log/usr.bin/diff/diff.c
-      * https://cgit.freebsd.org/src/tree/usr.bin/diff
+  * https://github.com/openbsd/src/tree/master/usr.bin/diff
+      * https://github.com/openbsd/src/commits/master/usr.bin/diff/diff.c
+  * https://cgit.freebsd.org/src/tree/usr.bin/diff
+      * https://cgit.freebsd.org/src/log/usr.bin/diff/diff.c
   * https://github.com/chimera-linux/bsddiff
