@@ -7,6 +7,34 @@ has code for warning "don't diff binary files".
 
 I've a vague recollection building under Mac OSX required NOT building with strlcat.c and strlcpy.c
 
+Predates diff dir support. Probably won't build on OpenBSD
+
+## changes
+
+features
+
+  * Environmental variable look up for `TMPDIR`
+  * Use as a library
+  * Build under Linux with gcc
+  * Build under Microsoft Windows with gcc
+  * Build under Microsoft Windows with msvcc
+
+Code
+
+  * simplediff.c
+  * fakeouts.h / fakeouts.c
+  * `str*.c` implementations for platforms that need them
+  * pathnames.h - from OpenBSD
+  * a bunch of `DISABLE_` macros
+      * `DISABLE_REGEX`
+      * `DISABLE_PR_PRINT`
+      * `DISABLE_TEMP`
+      * `DISABLE_NULLDEVICE`
+      * `DISABLE_XASPRINTF`
+  * a bunch of `USE_BUILTIN_` macros
+      * `USE_BUILTIN_PREAD`
+      * `USE_BUILTIN_ERRWARN`
+
 ## diff resources
 
   * https://github.com/openbsd/src/tree/master/usr.bin/diff
