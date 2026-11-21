@@ -13,7 +13,8 @@ Predates diff dir support. Probably won't build on OpenBSD
 
 ```bash
 cd diff
-gcc -o diff.exe -I. -DDISABLE_REGEX -DDISABLE_PR_PRINT -DDISABLE_TEMP -DDISABLE_NULLDEVICE -DUSE_BUILTIN_ERRWARN -DUSE_BUILTIN_PREAD  diff.c diffreg.c xmalloc.c   fakeouts.c strlcat.c strlcpy.c```
+gcc -o diff.exe -I. -DDISABLE_REGEX -DDISABLE_PR_PRINT -DDISABLE_TEMP -DDISABLE_NULLDEVICE -DUSE_BUILTIN_ERRWARN -DUSE_BUILTIN_PREAD  diff.c diffreg.c xmalloc.c   fakeouts.c strlcat.c strlcpy.c
+```
 
 ## changes
 
