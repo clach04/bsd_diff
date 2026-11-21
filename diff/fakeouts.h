@@ -41,4 +41,7 @@ typedef unsigned long   u_long;
     #endif
 #endif /* defined(_MSC_VER) */
 
+/* not sure what this is, so just "remove" it */
+#define __dead
+
 #endif /* _FAKEOUTS_H */

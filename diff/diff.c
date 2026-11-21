@@ -24,7 +24,9 @@
 #include <sys/stat.h>
 
 #include <ctype.h>
+#ifndef USE_BUILTIN_ERRWARN
 #include <err.h>
+#endif /* USE_BUILTIN_ERRWARN */
 #include <errno.h>
 #include <getopt.h>
 #include <signal.h>
@@ -34,6 +36,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "fakeouts.h"
 #include "diff.h"
 #include "xmalloc.h"
 
@@ -42,7 +45,9 @@ int	 diff_format, diff_context, status;
 char	*start, *ifdefname, *diffargs, *label[2], *ignore_pats;
 struct stat stb1, stb2;
 struct excludes *excludes_list;
+#ifndef DISABLE_REGEX
 regex_t	 ignore_re;
+#endif /* DISABLE_REGEX */
 
 #define	OPTIONS	"0123456789abC:cdD:efhI:iL:lnNPpqrS:sTtU:uwX:x:"
 static struct option longopts[] = {
@@ -154,7 +159,11 @@ main(int argc, char **argv)
 			break;
 		case 'l':
 			lflag = 1;
+#ifdef _WIN32
+			errx(2, "%s", "win32 - no signal support");
+#else /* _WIN32 */
 			signal(SIGPIPE, SIG_IGN);
+#endif /* _WIN32 */
 			break;
 		case 'N':
 			Nflag = 1;
@@ -227,6 +236,7 @@ main(int argc, char **argv)
 		char buf[BUFSIZ];
 		int error;
 
+#ifndef DISABLE_REGEX
 		if ((error = regcomp(&ignore_re, ignore_pats,
 				     REG_NEWLINE | REG_EXTENDED)) != 0) {
 			regerror(error, &ignore_re, buf, sizeof(buf));
@@ -235,6 +245,9 @@ main(int argc, char **argv)
 			else
 				errx(2, "%s", buf);
 		}
+#else /* NO_REGEX */
+		errx(2, "%s", "DISABLE_REGEX is in place");
+#endif /* NO_REGEX */
 	}
 	if (strcmp(argv[0], "-") == 0) {
 		fstat(STDIN_FILENO, &stb1);
@@ -252,7 +265,8 @@ main(int argc, char **argv)
 	if (S_ISDIR(stb1.st_mode) && S_ISDIR(stb2.st_mode)) {
 		if (diff_format == D_IFDEF)
 			errx(2, "-D option not supported with directories");
-		diffdir(argv[0], argv[1], dflags);
+		//diffdir(argv[0], argv[1], dflags);// fixme
+		errx(2, "%s", "no diffdir support");
 	} else {
 		if (S_ISDIR(stb1.st_mode)) {
 			argv[0] = splice(argv[0], argv[1]);
